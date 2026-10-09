@@ -1,0 +1,138 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Based on the Starship "Catppuccin Powerline" preset (https://starship.rs/presets/catppuccin-powerline),
+# trimmed to the modules this workstation needs: OS/user, directory, git, Node.js, AWS, time.
+# Needs a Nerd Font in Windows Terminal (for example "CaskaydiaCove Nerd Font"). Glyphs are written
+# as \u escapes so they survive copy and paste.
+#
+# Install:  Copy to  %USERPROFILE%\.config\starship.toml
+# Check:    starship explain      (shows which modules are active and why)
+#
+# Segment colours:  red = who   peach = where   yellow = git   green = Node.js
+#                   sapphire = AWS profile and region   lavender = time
+
+command_timeout = 1000
+palette = 'catppuccin_mocha'
+
+format = """
+[](red)\
+$os\
+$username\
+[](bg:peach fg:red)\
+$directory\
+[](bg:yellow fg:peach)\
+$git_branch\
+$git_status\
+[](bg:green fg:yellow)\
+$nodejs\
+[](bg:sapphire fg:green)\
+$aws\
+[](bg:lavender fg:sapphire)\
+$time\
+[ ](fg:lavender)\
+$cmd_duration\
+$line_break\
+$character"""
+
+[os]
+disabled = false
+style = "bg:red fg:crust"
+
+[os.symbols]
+Windows = ""
+Ubuntu = ""
+Linux = ""
+Macos = ""
+
+[username]
+show_always = true
+style_user = "bg:red fg:crust"
+style_root = "bg:red fg:crust"
+format = '[ $user]($style)'
+
+[directory]
+style = "bg:peach fg:crust"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "\U000F0219 "
+"Downloads" = " "
+
+[git_branch]
+symbol = ""
+style = "bg:yellow"
+format = '[[ $symbol $branch ](fg:crust bg:yellow)]($style)'
+
+[git_status]
+style = "bg:yellow"
+format = '[[($all_status$ahead_behind )](fg:crust bg:yellow)]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:green"
+format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
+
+# AWS: shows the profile and region the shell is using (set by Use-AwsProfile in docs\session.ps1).
+# Starship only reads environment variables and ~/.aws files here. It never calls the AWS CLI.
+# The aliases make the Cloud Study account impossible to miss. Starship cannot recolour a segment
+# by profile, so the warning is in the text.
+[aws]
+symbol = ""
+style = "bg:sapphire"
+format = '[[ $symbol( $profile)( \($region\)) ](fg:crust bg:sapphire)]($style)'
+
+[aws.profile_aliases]
+default = "STUDY-ACCOUNT !"
+stacknimbus-rook = "stacknimbus-rook"
+observedstate = "observedstate"
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:lavender"
+format = '[[  $time ](fg:crust bg:lavender)]($style)'
+
+[cmd_duration]
+min_time = 2000
+show_milliseconds = false
+format = " took $duration "
+style = "fg:overlay1"
+disabled = false
+
+[line_break]
+disabled = false
+
+[character]
+disabled = false
+success_symbol = '[❯](bold fg:green)'
+error_symbol = '[❯](bold fg:red)'
+
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
